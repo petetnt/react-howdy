@@ -24,11 +24,11 @@ npm install
 Run the app
 
 ``` bash
-yarn start
+yarn start-dev
 
 # or
 
-npm run start
+npm run start-dev
 ```
 
 ## Building the app
