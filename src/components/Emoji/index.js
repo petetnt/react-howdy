@@ -22,7 +22,7 @@ const EmojiWrapper = styled.div`
 const PropTypes = {
   emoji: shape({
     id: string.isRequired,
-    skin: number.isRequired,
+    skin: number,
     key: string.isRequired,
   }).isRequired,
   selectedEmoji: string,
@@ -31,6 +31,9 @@ const PropTypes = {
 
 const DefaultProps = {
   selectedEmoji: null,
+  emoji: {
+    skin: null,
+  },
 };
 
 const CustomEmoji = ({
