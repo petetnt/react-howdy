@@ -44,7 +44,7 @@ const wrapComponentWithState = provideState({
           return emoji;
         }
 
-        const { id, skin, native } = emoji;
+        const { id, skin, native } = newEmoji;
 
         return { id, skin, native, key };
       }),
