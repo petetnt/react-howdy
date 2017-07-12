@@ -6,33 +6,48 @@ import 'emoji-mart/css/emoji-mart.css';
 
 const EmojiWrapper = styled.div`
   cursor: pointer;
-  ${props => props.isSelected ? `
-    border: 1px solid pink;
+  border: 1px solid transparent;
+  height: 26px;
+
+  ${props =>
+    props.isSelected
+      ? `
+    background-color: #ccc;
+    border: 1px solid hotpink;
     border-radius: 2px;
-  ` : ''}
+  `
+      : ''};
 `;
 
 const PropTypes = {
   emoji: shape({
     id: string.isRequired,
     skin: number.isRequired,
-    key: number.isRequired,
+    key: string.isRequired,
   }).isRequired,
-  selectedEmoji: number,
-  selectEmoji: func.isRequired,  
-}
+  selectedEmoji: string,
+  selectEmoji: func.isRequired,
+};
 
 const DefaultProps = {
-  selectedEmoji: null, 
-}
+  selectedEmoji: null,
+};
 
-const CustomEmoji = ({selectedEmoji, selectEmoji, emoji: {id, skin, key }, ...rest}) => (
-  <EmojiWrapper isSelected={ selectedEmoji === key }
->
+const CustomEmoji = ({
+  selectedEmoji,
+  selectEmoji,
+  emoji: { id, skin, key },
+  ...rest
+}) =>
+  <EmojiWrapper isSelected={selectedEmoji === key}>
     <Emoji
-      onClick={() => selectEmoji(key)} emoji={{ id, skin }} {...rest} set="twitter" size={24}/>
-  </EmojiWrapper>
-);
+      onClick={() => selectEmoji(key)}
+      emoji={{ id, skin }}
+      {...rest}
+      set="twitter"
+      size={24}
+    />
+  </EmojiWrapper>;
 
 CustomEmoji.propTypes = PropTypes;
 CustomEmoji.defaultProps = DefaultProps;

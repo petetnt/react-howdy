@@ -1,61 +1,81 @@
 import React from 'react';
-import { provideState, injectState, softUpdate as update } from "freactal";
+import { provideState, injectState, softUpdate as update } from 'freactal';
 import styled from 'styled-components';
-import EmojiSheet from "./containers/EmojiSheet";
-import Picker from "./containers/Picker";
+import EmojiSheet from './containers/EmojiSheet';
+import Picker from './containers/Picker';
+import TextArea from './containers/TextArea';
+import CopyToClipboard from './containers/CopyToClipboard';
+import computeCopyText from './lib/compute-copy-text';
+
+let copyTimeout;
 
 const wrapComponentWithState = provideState({
-  initialState: () => ({ emojis: [
-    { id: 'face_with_cowboy_hat', skin: 1, key: 1 },
-    { id: 'beer', skin: 1, key: 2 },
-    { id: 'beer', skin: 1, key: 3 },
-    { id: 'beer', skin: 1, key: 4 },
-    { id: 'beer', skin: 1, key: 5 },
-    { id: 'beer', skin: 1, key: 6 },
-    { id: 'beer', skin: 1, key: 7 },
-    { id: 'beer', skin: 1, key: 8 },
-    { id: 'beer', skin: 1, key: 9 },
-    { id: 'beer', skin: 1, key: 10 },
-    { id: 'point_down', skin: 1, key: 11 },
-    { id: 'beer', skin: 1, key: 12 },
-    { id: 'beer', skin: 1, key: 13 },
-    { id: 'point_down', skin: 1, key: 14 },
-    { id: 'beer', skin: 1, key: 15 },
-    { id: 'beer', skin: 1, key: 16 },
-    { id: 'beer', skin: 1, key: 17 },
-    { id: 'beer', skin: 1, key: 18 },
-    { id: 'boot', skin: 1, key: 19 },
-    { id: 'boot', skin: 1, key: 20 },
-  ],
-  selectedEmoji: null,
+  initialState: () => ({
+    emojis: [
+      { id: 'face_with_cowboy_hat', skin: 1, key: 'emoji-0' },
+      { id: 'beer', skin: 1, key: 'emoji-2' },
+      { id: 'beer', skin: 1, key: 'emoji-3' },
+      { id: 'beer', skin: 1, key: 'emoji-4' },
+      { id: 'beer', skin: 1, key: 'emoji-5' },
+      { id: 'beer', skin: 1, key: 'emoji-6' },
+      { id: 'beer', skin: 1, key: 'emoji-7' },
+      { id: 'point_down', skin: 1, key: 'emoji-8' },
+      { id: 'beer', skin: 1, key: 'emoji-9' },
+      { id: 'beer', skin: 1, key: 'emoji-10' },
+      { id: 'point_down', skin: 1, key: 'emoji-11' },
+      { id: 'beer', skin: 1, key: 'emoji-12' },
+      { id: 'beer', skin: 1, key: 'emoji-13' },
+      { id: 'beer', skin: 1, key: 'emoji-14' },
+      { id: 'beer', skin: 1, key: 'emoji-15' },
+      { id: 'boot', skin: 1, key: 'emoji-16' },
+      { id: 'boot', skin: 1, key: 'emoji-17' },
+    ],
+    selectedEmoji: null,
+    showCopiedNotification: false,
+    text: 'howdy. i am the default sheriff. please do something to me.',
   }),
   effects: {
     selectEmoji: update((state, key) => ({
       selectedEmoji: key,
     })),
     updateEmoji: update(({ emojis }, newEmoji, key) => ({
-      emojis: emojis.map((emoji) => {
+      emojis: emojis.map(emoji => {
         if (emoji.key !== key) {
-          return emoji; 
+          return emoji;
         }
-        
+
         return { id: newEmoji.id, skin: 1, key };
-      })
-  }))
+      }),
+    })),
+    updateText: update((state, text) => ({ text })),
+    setShowCopiedNotification: update((state, showCopiedNotification) => ({
+      showCopiedNotification,
+    })),
+    textCopied: effects => {
+      window.clearTimeout(copyTimeout);
+      const effect = effects.setShowCopiedNotification;
+      effect(true);
+
+      copyTimeout = setTimeout(() => {
+        effect(false);
+      }, 2500);
+    },
+  },
+  computed: {
+    textToCopy: computeCopyText,
   },
 });
 
 const Container = styled.div`
-
-`;
-
-const EmojiSheetWrapper = styled.div`
-  width: 50%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 
 const Wrapper = styled.div`
   display: flex;
-  flex:
+  padding: 1rem;
 `;
 
 const Title = styled.h1`
@@ -63,20 +83,73 @@ const Title = styled.h1`
   width: 100%;
 `;
 
-const PickerWrapper = styled.div`
+const EmojiSheetWrapper = styled.div`
   width: 50%;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  border-right: 1px solid hotpink;
 `;
 
-export default wrapComponentWithState(injectState(() => (
-  <Container>
-    <Title>react-howdy</Title>
-    <Wrapper>
-      <EmojiSheetWrapper>
-        <EmojiSheet />
-      </EmojiSheetWrapper>  
-      <PickerWrapper>
-        <Picker />
-      </PickerWrapper>
-    </Wrapper>
-  </Container>
-)));
+const PickerWrapper = styled.div`
+  width: 50%;
+  justify-content: center;
+  display: flex;
+  padding: 1rem;
+`;
+
+const Footer = styled.footer`
+  width: 100%;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+`;
+
+const Link = styled.a`
+  color: hotpink;
+
+  &:hover,
+  &:focus {
+    color: hotpink;
+  }
+`;
+
+const Text = styled.span`
+  padding-left: 1rem;
+  padding-right: 1rem;
+
+  &&&:not(:last-of-type) {
+    border-right: 1px solid hotpink;
+  }
+`;
+
+export default wrapComponentWithState(
+  injectState(() =>
+    <Container>
+      <Title>Sheriff generator</Title>
+      <Wrapper>
+        <EmojiSheetWrapper>
+          <EmojiSheet />
+          <TextArea />
+          <CopyToClipboard />
+        </EmojiSheetWrapper>
+        <PickerWrapper>
+          <Picker />
+        </PickerWrapper>
+      </Wrapper>
+      <Footer>
+        <Text>
+          Made by <Link href="https://twitter.com/pete_tnt">@pete_tnt</Link>
+        </Text>
+        <Text>
+          Source at{' '}
+          <Link href="https://github.com/petetnt/react-howdy">GitHub</Link>
+        </Text>
+        <Text>
+          Hello to <Link href="https://motley.fi">Motley</Link>
+        </Text>
+      </Footer>
+    </Container>,
+  ),
+);
