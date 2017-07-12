@@ -12,23 +12,23 @@ let copyTimeout;
 const wrapComponentWithState = provideState({
   initialState: () => ({
     emojis: [
-      { id: 'face_with_cowboy_hat', skin: 1, key: 'emoji-0' },
-      { id: 'beer', skin: 1, key: 'emoji-2' },
-      { id: 'beer', skin: 1, key: 'emoji-3' },
-      { id: 'beer', skin: 1, key: 'emoji-4' },
-      { id: 'beer', skin: 1, key: 'emoji-5' },
-      { id: 'beer', skin: 1, key: 'emoji-6' },
-      { id: 'beer', skin: 1, key: 'emoji-7' },
-      { id: 'point_down', skin: 1, key: 'emoji-8' },
-      { id: 'beer', skin: 1, key: 'emoji-9' },
-      { id: 'beer', skin: 1, key: 'emoji-10' },
-      { id: 'point_down', skin: 1, key: 'emoji-11' },
-      { id: 'beer', skin: 1, key: 'emoji-12' },
-      { id: 'beer', skin: 1, key: 'emoji-13' },
-      { id: 'beer', skin: 1, key: 'emoji-14' },
-      { id: 'beer', skin: 1, key: 'emoji-15' },
-      { id: 'boot', skin: 1, key: 'emoji-16' },
-      { id: 'boot', skin: 1, key: 'emoji-17' },
+      { id: 'face_with_cowboy_hat', skin: 1, native: '🤠', key: 'emoji-0' },
+      { id: 'beer', skin: 1, native: '🍺', key: 'emoji-2' },
+      { id: 'beer', skin: 1, native: '🍺', key: 'emoji-3' },
+      { id: 'beer', skin: 1, native: '🍺', key: 'emoji-4' },
+      { id: 'beer', skin: 1, native: '🍺', key: 'emoji-5' },
+      { id: 'beer', skin: 1, native: '🍺', key: 'emoji-6' },
+      { id: 'beer', skin: 1, native: '🍺', key: 'emoji-7' },
+      { id: 'point_down', skin: 1, native: '👇', key: 'emoji-8' },
+      { id: 'beer', skin: 1, native: '🍺', key: 'emoji-9' },
+      { id: 'beer', skin: 1, native: '🍺', key: 'emoji-10' },
+      { id: 'point_down', skin: 1, native: '👇', key: 'emoji-11' },
+      { id: 'beer', skin: 1, native: '🍺', key: 'emoji-12' },
+      { id: 'beer', skin: 1, native: '🍺', key: 'emoji-13' },
+      { id: 'beer', skin: 1, native: '🍺', key: 'emoji-14' },
+      { id: 'beer', skin: 1, native: '🍺', key: 'emoji-15' },
+      { id: 'boot', skin: 1, native: '👢', key: 'emoji-16' },
+      { id: 'boot', skin: 1, native: '👢', key: 'emoji-17' },
     ],
     selectedEmoji: null,
     showCopiedNotification: false,
@@ -44,7 +44,9 @@ const wrapComponentWithState = provideState({
           return emoji;
         }
 
-        return { id: newEmoji.id, skin: 1, key };
+        const { id, skin, native } = emoji;
+
+        return { id, skin, native, key };
       }),
     })),
     updateText: update((state, text) => ({ text })),

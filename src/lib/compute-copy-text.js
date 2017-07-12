@@ -1,4 +1,3 @@
-import { shortnameToUnicode } from 'emojione';
 import patterns from '../constants/patterns';
 
 export default ({ emojis, text }) => {
@@ -9,14 +8,9 @@ export default ({ emojis, text }) => {
       pattern
         .map(shouldRender => {
           if (shouldRender && emojiCounter < emojis.length) {
-            // TODO - file issue to emojione that :face_with_cowboy_hat: doesn't work
-            const id = emojis[emojiCounter].id.replace(
-              'face_with_cowboy_hat',
-              'cowboy',
-            );
-            const unicodeEmoji = shortnameToUnicode(`:${id}:`);
+            const { native } = emojis[emojiCounter];
             emojiCounter += 1;
-            return unicodeEmoji;
+            return native;
           }
 
           return '　 ';
