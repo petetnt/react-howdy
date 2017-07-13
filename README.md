@@ -73,7 +73,7 @@ npm run serve
 ## Acknowledgements
 
 - [`styled-components`](https://www.styled-components.com/) for easy style management
-- [`freactal`](https://github.com/FormidableLabs) for simple state management
+- [`freactal`](https://github.com/FormidableLabs/freactal) for simple state management
 - [`emoji-mart`](https://github.com/missive/emoji-mart) for awesome emoji picker
 - [`bootstrap`](https://bootstrap.com) for reboot css reset
 - and all the other OSS libraries used in this project and their creators, maintainers, contributors and fans!
