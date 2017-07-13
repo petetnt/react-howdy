@@ -2,8 +2,10 @@ import React from 'react';
 import { shape, arrayOf, string, number, func } from 'prop-types';
 import { injectState } from 'freactal';
 import styled from 'styled-components';
+import { mediaBreakpointDownSm } from 'styled-bootstrap-responsive-breakpoints';
 import Emoji from '../../components/Emoji';
 import Empty from '../../components/Empty';
+import InfoText from '../../components/InfoText';
 import patterns from '../../constants/patterns';
 
 const PropTypes = {
@@ -34,6 +36,24 @@ const Rows = styled.div`
 `;
 
 const Row = styled.div`display: flex;`;
+
+const StyledInfoText = styled(InfoText)`
+  margin-bottom: 1rem;
+`;
+
+const ResponsivePointer = styled.span`
+  &:before {
+    content: "👉";
+    display: inline;
+  }
+
+  ${mediaBreakpointDownSm`
+    &:before {
+      content: "👆";
+      display: inline;
+    }    
+  `};
+`;
 
 const renderEmojiRow = (
   { state: { emojis, selectedEmoji }, effects: { selectEmoji } },
@@ -71,6 +91,16 @@ renderEmojiRow.defaultProps = DefaultProps;
 
 export default injectState(state =>
   <Rows>
+    {!state.state.selectedEmoji
+      ? <StyledInfoText>
+          Start by selecting an emoji{' '}
+          <span role="img" aria-label="emoji-pointing-down">
+            👇
+          </span>
+        </StyledInfoText>
+      : <StyledInfoText>
+          {' '}Select a new emoji <ResponsivePointer />
+        </StyledInfoText>}
     {renderEmojiRow(state, { range: [0, 1], pattern: patterns[0] }, 'row-1')}
     {renderEmojiRow(state, { range: [1, 4], pattern: patterns[1] }, 'row-2')}
     {renderEmojiRow(state, { range: [4, 7], pattern: patterns[2] }, 'row-3')}

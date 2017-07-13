@@ -1,6 +1,10 @@
 import React from 'react';
 import { provideState, injectState, softUpdate as update } from 'freactal';
 import styled from 'styled-components';
+import {
+  breakpoints,
+  mediaBreakpointDownSm,
+} from 'styled-bootstrap-responsive-breakpoints';
 import EmojiSheet from './containers/EmojiSheet';
 import Picker from './containers/Picker';
 import TextArea from './containers/TextArea';
@@ -32,7 +36,7 @@ const wrapComponentWithState = provideState({
     ],
     selectedEmoji: null,
     showCopiedNotification: false,
-    text: 'howdy. i am the default sheriff. please do something to me.',
+    text: 'howdy. i am the default sheriff. please do change this text.',
   }),
   effects: {
     selectEmoji: update((state, key) => ({
@@ -73,11 +77,18 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  max-width: ${breakpoints.xl};
+  margin-left: auto;
+  margin-right: auto;
 `;
 
 const Wrapper = styled.div`
   display: flex;
   padding: 1rem;
+
+  ${mediaBreakpointDownSm`
+    flex-direction: column-reverse;
+  `};
 `;
 
 const Title = styled.h1`
@@ -90,8 +101,16 @@ const EmojiSheetWrapper = styled.div`
   justify-content: center;
   display: flex;
   flex-direction: column;
-  padding: 1rem;
+  padding-top: 0;
+  padding-right: 1rem;
+  padding-bottom: 1rem;
+  padding-left: 1rem;
   border-right: 1px solid hotpink;
+
+  ${mediaBreakpointDownSm`
+    width: 100%;
+    border-right: 0px solid transparent;
+  `};
 `;
 
 const PickerWrapper = styled.div`
@@ -99,6 +118,11 @@ const PickerWrapper = styled.div`
   justify-content: center;
   display: flex;
   padding: 1rem;
+
+  ${mediaBreakpointDownSm`
+    width: 100%;
+    border-right: 0px solid transparent;
+  `};
 `;
 
 const Footer = styled.footer`
@@ -129,7 +153,15 @@ const Text = styled.span`
 export default wrapComponentWithState(
   injectState(() =>
     <Container>
-      <Title>Sheriff generator</Title>
+      <Title>
+        <span role="img" aria-label="cowboy emoji">
+          🤠
+        </span>{' '}
+        Sheriff generator{' '}
+        <span role="img" aria-label="cowboy emoji">
+          🤠
+        </span>
+      </Title>
       <Wrapper>
         <EmojiSheetWrapper>
           <EmojiSheet />

@@ -1,7 +1,6 @@
 import React from 'react';
 import { injectState } from 'freactal';
 import { Picker } from 'emoji-mart';
-import InfoText from '../../components/InfoText';
 
 export default injectState(
   ({ state: { selectedEmoji }, effects: { updateEmoji } }) =>
@@ -10,5 +9,5 @@ export default injectState(
           onClick={emoji => updateEmoji(emoji, selectedEmoji)}
           set="twitter"
         />
-      : <InfoText>Select an emoji to get started</InfoText>,
+      : null,
 );

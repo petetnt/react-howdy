@@ -4,7 +4,7 @@ import TextArea from '../../components/TextArea';
 
 export default injectState(({ state: { text }, effects: { updateText } }) =>
   <TextArea
-    value={text}
+    defaultValue={text}
     rows={2}
     onChange={({ currentTarget: { value } }) => updateText(value)}
   />,

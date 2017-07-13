@@ -5,7 +5,16 @@ import CopyToClipboard from 'react-copy-to-clipboard';
 import Button from '../../components/Button';
 import InfoText from '../../components/InfoText';
 
-const Wrapper = styled.div`align-self: flex-end;`;
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+`;
+
+const StyledInfoText = styled(InfoText)`
+  text-align: center;
+  width: 100%;
+`;
 
 export default injectState(
   ({
@@ -16,6 +25,6 @@ export default injectState(
       <CopyToClipboard text={textToCopy} onCopy={textCopied}>
         <Button>Copy to clipboard</Button>
       </CopyToClipboard>
-      {showCopiedNotification ? <InfoText>Copied!</InfoText> : null}
+      {showCopiedNotification ? <StyledInfoText>Copied!</StyledInfoText> : null}
     </Wrapper>,
 );

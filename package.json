@@ -1,7 +1,9 @@
 {
   "name": "react-howdy",
-  "version": "1.0.0",
+  "description": "Howdy, I am the react sheriff",
+  "version": "1.1.0",
   "private": true,
+  "license": "MIT",
   "dependencies": {
     "emoji-mart": "^1.0.1",
     "freactal": "^1.1.0",
@@ -10,6 +12,7 @@
     "react-copy-to-clipboard": "^5.0.0",
     "react-dom": "^15.6.1",
     "serve": "^6.0.2",
+    "styled-bootstrap-responsive-breakpoints": "^4.1.0",
     "styled-components": "^2.1.1"
   },
   "devDependencies": {
