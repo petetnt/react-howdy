@@ -11,7 +11,7 @@
     "react": "^15.6.1",
     "react-copy-to-clipboard": "^5.0.0",
     "react-dom": "^15.6.1",
-    "serve": "^6.0.2",
+    "serve": "^9.2.0",
     "styled-bootstrap-responsive-breakpoints": "^4.1.0",
     "styled-components": "^2.1.1"
   },
