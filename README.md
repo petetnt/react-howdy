@@ -11,7 +11,7 @@
 ```
 
 Howdy. I'm the sheriff of `react-howdy`, a React application for
-creating emoji sheriffs.
+creating emoji sheriffs. 
 
 [Demo at https://howdy.petetnt.xyz](https://howdy.petetnt.xyz);
 
